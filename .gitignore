@@ -1,0 +1,25 @@
+.vs/  
+.vs/**  
+bin-int/**   
+bin-int/ 
+builde/ 
+builde/** 
+.vscode/**
+.vscode/
+imgui.ini
+
+vendor/yaml-cpp/Makefile
+vendor/imgui/Makefile
+vendor/GLFW/Makefile
+
+.vs/
+bin/
+bin-int/
+
+LOG*
+
+*Makfile
+*.ini
+
+# Exclude
+ 

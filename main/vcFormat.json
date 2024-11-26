@@ -1,0 +1,8 @@
+{
+    "format": {
+        "basedOnStyle": "LLVM",
+        "IndentWidth": 4,
+        "UseTab": "Never",
+        "AllowShortIfStatementsOnASingleLine": "true"
+    }
+}
