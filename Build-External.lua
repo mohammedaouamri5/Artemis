@@ -1,7 +1,6 @@
 -- WalnutExternal.lua
 
 -- VULKAN_SDK = os.getenv("VULKAN_SDK")
-OpenGL_SDK = "../vendor/GL" -- Adjust the path accordingly
 
 IncludeDir = {}
 
@@ -17,6 +16,8 @@ group "Dependencies"
    include "vendor/yaml-cpp"
    include "vendor/stb_image"
    include "vendor/SOIL"
+   include "vendor/glad"
+
 group ""
 
 -- group "Core"

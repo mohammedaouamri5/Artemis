@@ -14,6 +14,7 @@ ifeq ($(config),debug)
   yaml_cpp_config = debug
   stb_image_config = debug
   SOIL_config = debug
+  GLAD_config = debug
   main_config = debug
 
 else ifeq ($(config),release)
@@ -22,6 +23,7 @@ else ifeq ($(config),release)
   yaml_cpp_config = release
   stb_image_config = release
   SOIL_config = release
+  GLAD_config = release
   main_config = release
 
 else ifeq ($(config),dist)
@@ -30,19 +32,20 @@ else ifeq ($(config),dist)
   yaml_cpp_config = dist
   stb_image_config = dist
   SOIL_config = dist
+  GLAD_config = dist
   main_config = dist
 
 else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := ImGui GLFW yaml-cpp stb_image SOIL main
+PROJECTS := ImGui GLFW yaml-cpp stb_image SOIL GLAD main
 
 .PHONY: all clean help $(PROJECTS) Dependencies
 
 all: $(PROJECTS)
 
-Dependencies: GLFW ImGui SOIL stb_image yaml-cpp
+Dependencies: GLAD GLFW ImGui SOIL stb_image yaml-cpp
 
 ImGui:
 ifneq (,$(ImGui_config))
@@ -74,7 +77,13 @@ ifneq (,$(SOIL_config))
 	@${MAKE} --no-print-directory -C vendor/SOIL -f Makefile config=$(SOIL_config)
 endif
 
-main: ImGui stb_image SOIL GLFW
+GLAD:
+ifneq (,$(GLAD_config))
+	@echo "==== Building GLAD ($(GLAD_config)) ===="
+	@${MAKE} --no-print-directory -C vendor/glad -f Makefile config=$(GLAD_config)
+endif
+
+main: ImGui stb_image SOIL GLFW GLAD
 ifneq (,$(main_config))
 	@echo "==== Building main ($(main_config)) ===="
 	@${MAKE} --no-print-directory -C main -f Makefile config=$(main_config)
@@ -86,6 +95,7 @@ clean:
 	@${MAKE} --no-print-directory -C vendor/yaml-cpp -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/stb_image -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/SOIL -f Makefile clean
+	@${MAKE} --no-print-directory -C vendor/glad -f Makefile clean
 	@${MAKE} --no-print-directory -C main -f Makefile clean
 
 help:
@@ -104,6 +114,7 @@ help:
 	@echo "   yaml-cpp"
 	@echo "   stb_image"
 	@echo "   SOIL"
+	@echo "   GLAD"
 	@echo "   main"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

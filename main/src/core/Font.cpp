@@ -12,12 +12,9 @@ namespace CORE
 
     }
     void Font::USE(){
-        ImGui::PushFont(*(this->font));
+        ImGui::PushFont(&(this->font));
     }
     void Font::UNUSE(){
         ImGui::PopFont();
-
     } 
-    
-    
 } // namespace CORE

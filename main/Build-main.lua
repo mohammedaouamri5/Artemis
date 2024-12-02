@@ -5,7 +5,7 @@ project "main"
    targetdir "bin/%{cfg.buildcfg}"
    staticruntime "off"
 
-   files { "src/**.h", "src/**.cpp" , "src/**.c" }
+   files { "src/**.h", "src/**.cpp" , "src/**.c" , "src/**.hpp" , "src/**.tpp"}
 
 
 
@@ -14,7 +14,7 @@ project "main"
 
 
    includedirs {
-       
+      "str/src",
       "../vendor/imgui",
       "../vendor/imgui/backends/",
       "../vendor/GLFW/include",
@@ -25,6 +25,7 @@ project "main"
       "../vendor/spdlog/include" ,
       "../vendor/" ,
       "../vendor",
+      "../vendor/glad", 
       "%{IncludeDir.glm}" ,                  
       "%{IncludeDir.X11}"
 
@@ -33,7 +34,7 @@ project "main"
 
    links {
            "ImGui","stb_image", "SOIL",
-           "GLFW",   "GL",  
+           "GLFW",   "GL",  "glad", "fmt"
           }
 
    targetdir ("../builde/" .. outputdir .. "/%{prj.name}")

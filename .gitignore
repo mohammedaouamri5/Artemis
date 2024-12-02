@@ -19,6 +19,8 @@ bin-int/
 LOG*
 
 *Makfile
+Makfile
+
 *.ini
 
 # Exclude
