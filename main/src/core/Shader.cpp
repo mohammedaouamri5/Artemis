@@ -1,12 +1,16 @@
 
 #include "Shader.hpp"
 #include <cstdlib>
+#include <fmt/base.h>
 #include <fmt/core.h>
+#include <iostream>
 #include <string>
 
+
+namespace CORE { 
 // Access the shader source as const char*
-inline const char *Shader::getSource() const { return source; }
-Shader::Shader(const std::string &__str) {
+Shader::Shader(const std::string &__str , GLuint shared) {
+  this->shader = shared;
 
   if (source != NULL) {
     free(source);
@@ -15,15 +19,28 @@ Shader::Shader(const std::string &__str) {
   memcpy(source, __str.c_str(), __str.size());
   source[__str.size()] = '\0'; // Null-terminate
 }
-template <typename... Args> std::string Shader::format(Args &&...args) {
-  return fmt::format(this->source, std::forward<Args>(args)...);
+
+
+
+
+void Shader::checkShaderCompileStatus() {
+  GLint success;
+  GLchar infoLog[512];
+  glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+  if (!success) {
+    glGetShaderInfoLog(shader, 512, NULL, infoLog);
+    std::cerr << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << "\nSource:\n" << getFormated() <<  std::endl;
+  }
 }
 
-void Shader::GlShaderSource(GLuint shader, GLsizei count, const GLchar *const *string,
-                    const GLint *length){
-    glShaderSource(shader, count, string, length);
+void Shader::checkProgramLinkingStatus() {
+  GLint success;
+  glGetProgramiv(shader, GL_LINK_STATUS, &success);
+    GLchar infoLog[512];
+  if (!success) {
+    glGetProgramInfoLog(shader, 512, NULL, infoLog);
+    std::cerr << "ERROR::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+  }
+}
 
-}
-void Shader::GlCompileShader(GLuint shader){
-    glCompileShader(shader);
-}
+};

@@ -9,8 +9,6 @@
 #include "stb_image.h"
 
 int main() {
-
-    // Create an instance of Traingel and initialize resources
     Traingel triangle;
     CORE::Win * win =  new CORE::Win();
     win->ADD(&triangle);

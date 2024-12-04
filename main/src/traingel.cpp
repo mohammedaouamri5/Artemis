@@ -1,25 +1,15 @@
 #include "traingel.hpp"
+#include "imgui.h"
 #include "src/core/Shader.hpp"
-
-const char *Traingel::vertexShaderSource = R"(
-    #version 460 core
-    layout(location = 0) in vec3 aPos;
-    void main() {
-        gl_Position = vec4(aPos, 1.0);
-    }
-)";
-
-const char *Traingel::fragmentShaderSource = R"(
-    #version 460 core
-    out vec4 FragColor;
-    void main() {
-        FragColor = vec4(1.0, 0.5, 0.2, 1.0); // Orange color
-    }
-)";
+#include <cmath>
+#include <cstdlib>
+#include <fmt/core.h>
+#include <fmt/format.h>
+#include <glm/vec4.hpp>
+#include <iostream>
 
 void Traingel::INIT() {
   // Generate and bind Vertex Array and Vertex Buffer objects
-
 
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &VBO);
@@ -34,65 +24,57 @@ void Traingel::INIT() {
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
   glEnableVertexAttribArray(0);
 
-  // Compile vertex shader
+  vertexShader = new CORE::Shader("#version 460 core\n"
+                                  "layout(location = {0}) in vec3 aPos;\n"
+                                  "void main() {{\n"
+                                  "    gl_Position = vec4(aPos, {1});\n"
+                                  "}}\n",
+                                  glCreateShader(GL_VERTEX_SHADER));
+  fragmentShader = new CORE::Shader(R"(
+              #version 460 core
+              out vec4 FragColor;
+              void main() {{
+                  FragColor = vec4({},{},{},{}); // Orange color
+              }})", 
+                                    glCreateShader(GL_FRAGMENT_SHADER));
 }
 
 void Traingel::RUN() {
+  int location = 0;
+  float bruh = 1.f;
+
+  vertexShader->GlShaderFormating(location, bruh);
+  vertexShader->GlCompileShader();
+  vertexShader->checkShaderCompileStatus();
 
 
-
-  GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-  glCompileShader(vertexShader);
-  checkShaderCompileStatus(vertexShader);
+  fragmentShader->GlShaderFormating(color.x, color.y, color.z, color.w);
+  fragmentShader->GlCompileShader();
+  fragmentShader->checkShaderCompileStatus();
 
   // Compile fragment shader
-  GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-  glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-  glCompileShader(fragmentShader);
-  checkShaderCompileStatus(fragmentShader);
 
-  // Link shaders to create a shader program
-  this->shaderProgram = glCreateProgram();
-  glAttachShader(this->shaderProgram, vertexShader);
-  glAttachShader(this->shaderProgram, fragmentShader);
-  glLinkProgram(this->shaderProgram);
-  checkProgramLinkingStatus(this->shaderProgram);
+  this->shaderProgram->checkProgramLinkingStatus();
+  // Link shaders to create a sjhader program
+  this->shaderProgram = new CORE::Shader("", glCreateProgram());
+  glAttachShader(this->shaderProgram->getShader(), vertexShader->getShader());
+  glAttachShader(this->shaderProgram->getShader(), fragmentShader->getShader());
+  glLinkProgram(this->shaderProgram->getShader());
+  this->shaderProgram->checkProgramLinkingStatus();
 
   // Clean up shaders after they are linked
-  glDeleteShader(vertexShader);
-  glDeleteShader(fragmentShader);
 
-
-
-
-  glUseProgram(this->shaderProgram);
+  glUseProgram(this->shaderProgram->getShader());
   glBindVertexArray(VAO);
   glDrawArrays(GL_TRIANGLES, 0, 3);
+  glDeleteShader(vertexShader->getShader());
+  glDeleteShader(fragmentShader->getShader());
 }
 
 void Traingel::DIST() {
-  glDeleteProgram(shaderProgram);
+  glDeleteShader(vertexShader->getShader());
+  glDeleteShader(fragmentShader->getShader());
+  glDeleteProgram(shaderProgram->getShader());
   glDeleteBuffers(1, &VBO);
   glDeleteVertexArrays(1, &VAO);
-}
-
-void Traingel::checkShaderCompileStatus(GLuint shader) {
-  GLint success;
-  GLchar infoLog[512];
-  glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-  if (!success) {
-    glGetShaderInfoLog(shader, 512, NULL, infoLog);
-    std::cerr << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
-  }
-}
-
-void Traingel::checkProgramLinkingStatus(GLuint program) {
-  GLint success;
-  glGetProgramiv(program, GL_LINK_STATUS, &success);
-  if (!success) {
-    GLchar infoLog[512];
-    glGetProgramInfoLog(program, 512, NULL, infoLog);
-    std::cerr << "ERROR::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-  }
 }

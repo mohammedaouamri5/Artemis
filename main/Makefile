@@ -84,6 +84,7 @@ GENERATED += $(OBJDIR)/Win.o
 GENERATED += $(OBJDIR)/imgui_impl_glfw.o
 GENERATED += $(OBJDIR)/imgui_impl_opengl3.o
 GENERATED += $(OBJDIR)/main.o
+GENERATED += $(OBJDIR)/ply.o
 GENERATED += $(OBJDIR)/traingel.o
 OBJECTS += $(OBJDIR)/Font.o
 OBJECTS += $(OBJDIR)/Image.o
@@ -93,6 +94,7 @@ OBJECTS += $(OBJDIR)/Win.o
 OBJECTS += $(OBJDIR)/imgui_impl_glfw.o
 OBJECTS += $(OBJDIR)/imgui_impl_opengl3.o
 OBJECTS += $(OBJDIR)/main.o
+OBJECTS += $(OBJDIR)/ply.o
 OBJECTS += $(OBJDIR)/traingel.o
 
 # Rules
@@ -179,6 +181,9 @@ $(OBJDIR)/main.o: src/main.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Vector.o: src/math/Vector.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/ply.o: src/ply.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/traingel.o: src/traingel.cpp

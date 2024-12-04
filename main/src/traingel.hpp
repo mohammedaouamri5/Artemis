@@ -1,5 +1,8 @@
 #include "core/Layout.hpp"
+#include "glm/vec4.hpp"
+#include "src/core/Shader.hpp"
 #include <glad/glad.h>
+#include <iostream>
 #include <vector>
 
 class Traingel : public CORE::Layout {
@@ -15,19 +18,17 @@ public:
   void DIST() override;
 
 private:
-  GLuint VAO, VBO, shaderProgram;
+  GLuint VAO, VBO;
+  CORE::Shader *shaderProgram;
+  CORE::Shader *vertexShader = NULL, *fragmentShader = NULL;
   std::vector<float> vertices; // The vertex data for the triangle
 
-  // Check shader compilation status
-  void checkShaderCompileStatus(GLuint shader);
-  // Check program linking status
-  void checkProgramLinkingStatus(GLuint program);
+private: // ImGui 
+
+  glm::vec4 color = {1.0f, 0.5f, 0.2f, 1.0f};
+  float bruh = 1.0f;
 
 
-  // Vertex Shader source code
-  static const char *vertexShaderSource;
-  // Fragment Shader source code
-  static const char *fragmentShaderSource;
 };
 
 // Define the shader source code as static members of the class
