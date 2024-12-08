@@ -32,36 +32,36 @@ define POSTBUILDCMDS
 endef
 
 ifeq ($(config),debug)
-TARGETDIR = ../builde/Debug-linux-x86_64/main
-TARGET = $(TARGETDIR)/main
-OBJDIR = ../bin-int/Debug-linux-x86_64/main
-DEFINES += -DWL_DEBUG
+TARGETDIR = ../build/Debug-linux-x86_64/Artimes
+TARGET = $(TARGETDIR)/Artimes
+OBJDIR = ../bin-int/Debug-linux-x86_64/Artimes
+DEFINES += -DSPDLOG_COMPILED_LIB -DSPDLOG_ACTIVE_LEVEL -DSPDLOG_FMT_EXTERNAL -DWL_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
-LIBS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a -lGL -lfmt -lX11 -lXrandr -lXi
-LDDEPS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a
+LIBS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Debug-linux-x86_64/spdlog/libspdlog.a -lassimp -lGL -lfmt -lX11 -lXrandr -lXi
+LDDEPS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Debug-linux-x86_64/spdlog/libspdlog.a
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
 else ifeq ($(config),release)
-TARGETDIR = ../builde/Release-linux-x86_64/main
-TARGET = $(TARGETDIR)/main
-OBJDIR = ../bin-int/Release-linux-x86_64/main
-DEFINES += -DWL_RELEASE
+TARGETDIR = ../build/Release-linux-x86_64/Artimes
+TARGET = $(TARGETDIR)/Artimes
+OBJDIR = ../bin-int/Release-linux-x86_64/Artimes
+DEFINES += -DSPDLOG_COMPILED_LIB -DSPDLOG_ACTIVE_LEVEL -DSPDLOG_FMT_EXTERNAL -DWL_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g -std=c++17
-LIBS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a -lGL -lfmt -lX11 -lXrandr -lXi
-LDDEPS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a
+LIBS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Release-linux-x86_64/spdlog/libspdlog.a -lassimp -lGL -lfmt -lX11 -lXrandr -lXi
+LDDEPS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Release-linux-x86_64/spdlog/libspdlog.a
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
 else ifeq ($(config),dist)
-TARGETDIR = ../builde/Dist-linux-x86_64/main
-TARGET = $(TARGETDIR)/main
-OBJDIR = ../bin-int/Dist-linux-x86_64/main
-DEFINES += -DWL_DIST
+TARGETDIR = ../build/Dist-linux-x86_64/Artimes
+TARGET = $(TARGETDIR)/Artimes
+OBJDIR = ../bin-int/Dist-linux-x86_64/Artimes
+DEFINES += -DSPDLOG_COMPILED_LIB -DSPDLOG_ACTIVE_LEVEL -DSPDLOG_FMT_EXTERNAL -DWL_DIST
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
-LIBS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a -lGL -lfmt -lX11 -lXrandr -lXi
-LDDEPS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a
+LIBS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Dist-linux-x86_64/spdlog/libspdlog.a -lassimp -lGL -lfmt -lX11 -lXrandr -lXi
+LDDEPS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Dist-linux-x86_64/spdlog/libspdlog.a
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
 
 endif
@@ -105,7 +105,7 @@ all: $(TARGET)
 
 $(TARGET): $(GENERATED) $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
 	$(PRELINKCMDS)
-	@echo Linking main
+	@echo Linking Artimes
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -126,7 +126,7 @@ else
 endif
 
 clean:
-	@echo Cleaning main
+	@echo Cleaning Artimes
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(GENERATED)

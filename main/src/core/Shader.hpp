@@ -4,7 +4,6 @@
 #include <cstdlib>
 #include <fmt/core.h>
 #include <glad/glad.h>
-#include <iostream>
 #include <string>
 #include <utility>
 
@@ -13,8 +12,7 @@ class Shader {
 private:
   char *source = nullptr;
   char *formated = nullptr;
-  GLuint shader = 0;
-
+  unsigned int shader = 0;
 public:
   // Constructor
   Shader(const std::string &format, GLuint shared);
