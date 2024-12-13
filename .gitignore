@@ -1,6 +1,8 @@
 .vs/  
 .vs/**  
 bin-int/**   
+**/bin-int/**   
+**/bin/**   
 bin-int/ 
 builde/ 
 builde/** 
