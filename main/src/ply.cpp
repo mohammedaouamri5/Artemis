@@ -152,18 +152,12 @@ void PLY::RUN() {
   const aiMesh *mesh = scene->mMeshes[0];
   // Compile and check vertex shader
 
-  ImGui::Begin("PLY");
-  ImGui::DragFloat3("Camera Position", (float *)&cameraPosition[0], 0.1f);
-  ImGui::DragFloat3("Look At", (float *)&cameraLookAt[0], 0.1f);
-  ImGui::DragFloat3("Up", (float *)&Up[0], 0.1f);
-
-  ImGui::End();
   glm::mat4 view = glm::lookAt(cameraPosition, cameraLookAt, Up);
   glm::mat4 MVP = this->projection * view * this->model;
 
   glUseProgram(this->shaderProgram->getShader());
   glUniform4f(glGetUniformLocation(this->shaderProgram->getShader(), "u_Color"),
-              1.f, 0.f, 0.f, .1f);
+              color.x, color.y, color.z, color.w);
   glUniformMatrix4fv(
       glGetUniformLocation(this->shaderProgram->getShader(), "u_MVP"), 1,
       GL_FALSE, &MVP[0][0]);
@@ -172,9 +166,14 @@ void PLY::RUN() {
   glDrawElements(GL_TRIANGLES, mesh->mNumFaces * 3, GL_UNSIGNED_INT, nullptr);
   glBindVertexArray(0);
   auto end_ = std::chrono::high_resolution_clock::now();
-
-  spdlog::info(
-      "it took std::chrono::microseconds == {}",
+  auto duration =
       std::chrono::duration_cast<std::chrono::microseconds>(end_ - start_)
-          .count());
+          .count();
+  ImGui::Begin("PLY");
+  ImGui::DragFloat3("Camera Position", (float *)&cameraPosition[0], 0.1f);
+  ImGui::DragFloat3("Look At", (float *)&cameraLookAt[0], 0.1f);
+  ImGui::DragFloat3("Up", (float *)&Up[0], 0.1f);
+  ImGui::DragFloat4("Color", (float *)&color[0], 0.1f);
+  ImGui::Text("rending time: %ld", duration);
+  ImGui::End();
 }
