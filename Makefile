@@ -12,40 +12,43 @@ ifeq ($(config),debug)
   ImGui_config = debug
   GLFW_config = debug
   yaml_cpp_config = debug
+  spdlog_config = debug
   stb_image_config = debug
   SOIL_config = debug
   GLAD_config = debug
-  main_config = debug
+  Artimes_config = debug
 
 else ifeq ($(config),release)
   ImGui_config = release
   GLFW_config = release
   yaml_cpp_config = release
+  spdlog_config = release
   stb_image_config = release
   SOIL_config = release
   GLAD_config = release
-  main_config = release
+  Artimes_config = release
 
 else ifeq ($(config),dist)
   ImGui_config = dist
   GLFW_config = dist
   yaml_cpp_config = dist
+  spdlog_config = dist
   stb_image_config = dist
   SOIL_config = dist
   GLAD_config = dist
-  main_config = dist
+  Artimes_config = dist
 
 else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := ImGui GLFW yaml-cpp stb_image SOIL GLAD main
+PROJECTS := ImGui GLFW yaml-cpp spdlog stb_image SOIL GLAD Artimes
 
 .PHONY: all clean help $(PROJECTS) Dependencies
 
 all: $(PROJECTS)
 
-Dependencies: GLAD GLFW ImGui SOIL stb_image yaml-cpp
+Dependencies: GLAD GLFW ImGui SOIL spdlog stb_image yaml-cpp
 
 ImGui:
 ifneq (,$(ImGui_config))
@@ -63,6 +66,12 @@ yaml-cpp:
 ifneq (,$(yaml_cpp_config))
 	@echo "==== Building yaml-cpp ($(yaml_cpp_config)) ===="
 	@${MAKE} --no-print-directory -C vendor/yaml-cpp -f Makefile config=$(yaml_cpp_config)
+endif
+
+spdlog:
+ifneq (,$(spdlog_config))
+	@echo "==== Building spdlog ($(spdlog_config)) ===="
+	@${MAKE} --no-print-directory -C vendor/spdlog -f Makefile config=$(spdlog_config)
 endif
 
 stb_image:
@@ -83,16 +92,17 @@ ifneq (,$(GLAD_config))
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile config=$(GLAD_config)
 endif
 
-main: ImGui stb_image SOIL GLFW GLAD
-ifneq (,$(main_config))
-	@echo "==== Building main ($(main_config)) ===="
-	@${MAKE} --no-print-directory -C main -f Makefile config=$(main_config)
+Artimes: ImGui stb_image SOIL GLFW GLAD spdlog
+ifneq (,$(Artimes_config))
+	@echo "==== Building Artimes ($(Artimes_config)) ===="
+	@${MAKE} --no-print-directory -C main -f Makefile config=$(Artimes_config)
 endif
 
 clean:
 	@${MAKE} --no-print-directory -C vendor/imgui -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/GLFW -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/yaml-cpp -f Makefile clean
+	@${MAKE} --no-print-directory -C vendor/spdlog -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/stb_image -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/SOIL -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile clean
@@ -112,9 +122,10 @@ help:
 	@echo "   ImGui"
 	@echo "   GLFW"
 	@echo "   yaml-cpp"
+	@echo "   spdlog"
 	@echo "   stb_image"
 	@echo "   SOIL"
 	@echo "   GLAD"
-	@echo "   main"
+	@echo "   Artimes"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

@@ -38,6 +38,7 @@
 #endif
 #ifndef APIENTRYP
 #define APIENTRYP APIENTRY *
+
 #endif
 
 #ifndef GLAPIENTRY
@@ -3402,7 +3403,6 @@ GLAPI PFNGLCREATEPROGRAMPROC glad_glCreateProgram;
 typedef GLuint (APIENTRYP PFNGLCREATESHADERPROC)(GLenum type);
 GLAPI PFNGLCREATESHADERPROC glad_glCreateShader;
 #define glCreateShader glad_glCreateShader
-
 typedef void (APIENTRYP PFNGLDELETEPROGRAMPROC)(GLuint program);
 GLAPI PFNGLDELETEPROGRAMPROC glad_glDeleteProgram;
 #define glDeleteProgram glad_glDeleteProgram
@@ -3651,6 +3651,7 @@ GLAPI PFNGLVERTEXATTRIB4USVPROC glad_glVertexAttrib4usv;
 #define glVertexAttrib4usv glad_glVertexAttrib4usv
 typedef void (APIENTRYP PFNGLVERTEXATTRIBPOINTERPROC)(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer);
 GLAPI PFNGLVERTEXATTRIBPOINTERPROC glad_glVertexAttribPointer;
+// typedef void (APIENTRYP PFNGLVERTEXATTRIBPOINTERPROC)(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer);
 #define glVertexAttribPointer glad_glVertexAttribPointer
 #endif
 #ifndef GL_VERSION_2_1

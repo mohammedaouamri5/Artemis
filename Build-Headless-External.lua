@@ -11,6 +11,7 @@ IncludeDir["vendor"] = "../vendor/"
 IncludeDir["X11"] = "../vendor/X11"
 IncludeDir["std_image"] = "../vendor/std_image"
 IncludeDir["SOIL"] = "../vendor/SOIL"
+
  
  
 group "Dependencies"
@@ -18,6 +19,7 @@ group "Dependencies"
    include "vendor/SOIL"
    include "vendor/glad"
    include "vendor/yaml-cpp"
+   include "vendor/spdlog"
 group ""
 
 -- group "Core"
