@@ -1,1 +1,1 @@
-builde/Debug-linux-x86_64/main/main
+./build/Debug-linux-x86_64/Artimes/Artimes
