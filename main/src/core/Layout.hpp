@@ -5,7 +5,6 @@
 
 namespace CORE
 {
-
     class Layout
     {
     public:

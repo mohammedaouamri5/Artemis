@@ -15,6 +15,8 @@ files { "src/**.h", "src/**.cpp", "src/**.c", "src/**.hpp", "src/**.tpp" }
 
 includedirs {
    "str/src",
+   "src",
+   "src/core",
    "../vendor/imgui",
    "../vendor/imgui/backends/",
    "../vendor/GLFW/include",

@@ -281,9 +281,10 @@ inline void error(const T &msg)
 }
 
 template<typename T>
-inline void critical(const T &msg)
+inline void critical(const T &msg , int code=1)
 {
     default_logger_raw()->critical(msg);
+    exit(1);
 }
 
 } // namespace spdlog

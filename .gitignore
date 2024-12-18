@@ -19,6 +19,7 @@ bin/
 bin-int/
 
 LOG*
+!LOG.hpp
 .cache
 *Makfile
 Makfile

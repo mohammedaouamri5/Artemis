@@ -13,16 +13,12 @@ public:
   void RUN() override;
   void DIST() override;
 
+  std::vector<float> vertices;
+  std::vector<float> color; 
 private:
-  GLuint VAO, VBO, EBO; 
   CORE::Shader *shaderProgram;
-  CORE::Shader *vertexShader = NULL, *fragmentShader = NULL;
-  std::vector<float> vertices; // The vertex data for the triangle
-
-private:
-  glm::vec4 color = {1.0f, 0.5f, 0.2f, 1.0f};
-  float bruh = 1.0f;
-
+  GLuint VAO, VBO,VBC, EBO; 
+  
 
 };
 

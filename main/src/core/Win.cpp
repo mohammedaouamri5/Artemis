@@ -4,11 +4,10 @@
 #include "Layout.hpp"
 #include "src/imgui/imgui_impl_glfw.h"
 #include "src/imgui/imgui_impl_opengl3.h"
+#include <core/LOG.hpp>
 #include <csetjmp>
 #include <cstdlib>
 #include <iostream>
-
-
 
 #include <spdlog/spdlog.h>
 #include <stdio.h>
@@ -26,44 +25,49 @@ static void glfw_error_callback(int error, const char *description) {
 namespace CORE {
 
 void CORE::Win::INIT() {
-  // Initialize GLFW
-  if (!glfwInit()) {
-    spdlog::error("Failed to initialize GLFW");
-    exit(5);
+  /* Initialize GLFW */ {
+    if (!glfwInit()) {
+      spdlog::error("Failed to initialize GLFW");
+      exit(5);
+    }
   }
 
-  // Create a windowed mode window and its OpenGL context
-  window = glfwCreateWindow(800, 800, "OpenGL with ImGui", NULL, NULL);
-  if (!window) {
-    spdlog::error("Failed to create GLFW window");
-    glfwTerminate();
-    exit(5);
+  /* Create a windowed mode window and its OpenGL context */ {
+    window = glfwCreateWindow(800, 800, "OpenGL with ImGui", NULL, NULL);
+    if (!window) {
+      LOG_ERROR("Failed to create GLFW window");
+      glfwTerminate();
+      exit(5);
+    }
   }
 
-  // Make the window's context current
-  glfwMakeContextCurrent(window);
-  glfwSwapInterval(1); // Enable V-Sync
-
-  // Initialize GLAD
-  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-    spdlog::error("Failed to initialize GLAD");
-    exit(5);
+  /* Make the window's context current */ {
+    glfwMakeContextCurrent(window);
+    glfwSwapInterval(1); // Enable V-Sync
   }
 
-  // Initialize ImGui context
-  IMGUI_CHECKVERSION();
-  ImGui::CreateContext();
-  ImGuiIO &io = ImGui::GetIO();
-  io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-  io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
-  io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-  io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+  /* Initialize GLAD*/ {
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+      LOG_ERROR("Failed to initialize GLAD");
+      exit(5);
+    }
+  }
 
-  ImGui::StyleColorsDark();
+  /* Initialize ImGui context*/ {
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO &io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    ImGui::StyleColorsDark();
+  }
 
-  // Initialize ImGui GLFW/OpenGL bindings
-  ImGui_ImplGlfw_InitForOpenGL(window, true);
-  ImGui_ImplOpenGL3_Init("#version 330");
+  /* Initialize ImGui GLFW/OpenGL bindings */ {
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
+  }
 
   // Initialize layouts
   for (Layout *&layout : this->Layouts)

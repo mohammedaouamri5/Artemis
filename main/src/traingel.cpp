@@ -9,23 +9,39 @@
 
 void Traingel::INIT() {
 // Generate and bind Vertex Array and Vertex Buffer objects
-#define number_indices 6
+#define number_indices 3
   // Define vertices and indices
   vertices = {
       -0.5f, -0.5f, 0.0f, // Vertex 0
       0.5f,  -0.5f, 0.0f, // Vertex 1
-      -1.f,  1.f,   0.0f, // Vertex 2
-      0.0f,  0.0f,  0.0f  // Vertex 2
+      -0.5f, 0.5f,  0.0f, // Vertex 2
   };
-  unsigned int indices[] = {3, 1, 0, 0, 2, 3};
+  color = {
+
+      1.f, 0.f, .0f, // Vertex 0
+      0.f, 1.f, .0f, // Vertex 1
+      0.f, 0.f, 1.f, // Vertex 2
+  };
+
+  unsigned int indices[] = {0, 1, 2};
 
   // Generate VAO, VBO, and EBO
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &VBO);
+  glGenBuffers(1, &VBC);
   glGenBuffers(1, &EBO);
 
   // Bind VAO
   glBindVertexArray(VAO);
+
+  // Bind and load vertex data into VBO
+  glBindBuffer(GL_ARRAY_BUFFER, VBC);
+  glBufferData(GL_ARRAY_BUFFER, color.size() * sizeof(float), color.data(),
+               GL_STATIC_DRAW);
+
+  // Specify vertex attribute for position (location = 1)
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+  glEnableVertexAttribArray(1);
 
   // Bind and load vertex data into VBO
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -43,53 +59,84 @@ void Traingel::INIT() {
 
   // Unbind VAO (optional but good practice)
   glBindVertexArray(0);
+  glDisableVertexAttribArray(0);
+  glDisableVertexAttribArray(1);
 
   // Initialize shaders
-  vertexShader = new CORE::Shader("#version 460 core\n"
-                                  "layout(location=0) in vec4 aPos;\n"
-                                  "void main() {{\n"
-                                  "    gl_Position = aPos;\n"
-                                  "}}\n",
-                                  glCreateShader(GL_VERTEX_SHADER));
+  CORE::Shader *vertexShader = new CORE::Shader(
+      "shaders/traingel_vertex.glsl", glCreateShader(GL_VERTEX_SHADER));
 
-  fragmentShader = new CORE::Shader(R"(
-                #version 460 core
-                out vec4 FragColor;
-                void main() {{
-                    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f); // Orange color
-                }})",
-                                    glCreateShader(GL_FRAGMENT_SHADER));
+  CORE::Shader *geometryShader = new CORE::Shader(
+      "shaders/traingel_geometry.glsl", glCreateShader(GL_GEOMETRY_SHADER));
+
+  CORE::Shader *fragmentShader = new CORE::Shader(
+      "shaders/traingel_fragment.glsl", glCreateShader(GL_FRAGMENT_SHADER));
+
+  {
+    {
+      vertexShader->GLshaderSource();
+      vertexShader->GLcompileShader();
+      vertexShader->checkShaderCompileStatus();
+    }
+    {
+      geometryShader->GLshaderSource();
+      geometryShader->GLcompileShader();
+      geometryShader->checkShaderCompileStatus();
+    }
+    {
+      fragmentShader->GLshaderSource();
+      fragmentShader->GLcompileShader();
+      fragmentShader->checkShaderCompileStatus();
+    }
+  }
+
+  this->shaderProgram = new CORE::Shader("", glCreateProgram());
+
+  /* NOTE : linking shaders */ {
+    glAttachShader(this->shaderProgram->getShader(), vertexShader->getShader());
+    glAttachShader(this->shaderProgram->getShader(),
+                   geometryShader->getShader());
+    glAttachShader(this->shaderProgram->getShader(),
+                   fragmentShader->getShader());
+    glLinkProgram(this->shaderProgram->getShader());
+    this->shaderProgram->checkProgramLinkingStatus();
+  }
+
+  /* NOTE : clean up */ {
+    glDeleteShader(vertexShader->getShader());
+    glDeleteShader(geometryShader->getShader());
+    glDeleteShader(fragmentShader->getShader());
+  }
 }
 
 void Traingel::RUN() {
-  // Compile and check vertex shader
-  vertexShader->GlShaderFormating();
-  vertexShader->GlCompileShader();
-  vertexShader->checkShaderCompileStatus();
+  if (1) {
+    glUseProgram(this->shaderProgram->getShader());
+    glBindVertexArray(VAO);
+    glDrawElements(GL_TRIANGLES, number_indices, GL_UNSIGNED_INT,
+                   nullptr); // Correct number of indices
+    glUseProgram(0);
+  } else {
 
-  // Compile and check fragment shader
-  fragmentShader->GlShaderFormating();
-  fragmentShader->GlCompileShader();
-  fragmentShader->checkShaderCompileStatus();
+    GLint vertices[] = {
+        0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, -1, 1, 0, -1, 0, 0,
+    };
 
-  // Create shader program and link shaders
-  this->shaderProgram = new CORE::Shader("", glCreateProgram());
-  glAttachShader(this->shaderProgram->getShader(), vertexShader->getShader());
-  glAttachShader(this->shaderProgram->getShader(), fragmentShader->getShader());
-  glLinkProgram(this->shaderProgram->getShader());
-  this->shaderProgram->checkProgramLinkingStatus();
+    GLubyte colors[] = {
+        255, 0, 0, 0, 255, 0, 0, 0, 255, 255, 255, 0, 255, 0, 255, 0, 255, 255,
+    };
 
-  // Clean up shaders after they are linked
-  glDeleteShader(vertexShader->getShader());
-  glDeleteShader(fragmentShader->getShader());
+    GLubyte indices[] = {
+        0, 1, 2, 3, 0, 3, 4, 5,
+    };
 
-  // Use the shader program
-  glUseProgram(this->shaderProgram->getShader());
-
-  // Bind VAO and draw
-  glBindVertexArray(VAO);
-  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT,
-                 nullptr); // Correct number of indices
+    glEnableClientState(GL_COLOR_ARRAY);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glColorPointer(3, GL_UNSIGNED_BYTE, 0, colors);
+    glVertexPointer(3, GL_INT, 0, vertices);
+    glDrawElements(GL_QUADS, sizeof(indices) / sizeof(GLubyte),
+                   GL_UNSIGNED_BYTE, indices);
+  }
 }
 
 void Traingel::DIST() {

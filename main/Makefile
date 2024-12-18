@@ -19,7 +19,7 @@ endif
 # #############################################
 
 RESCOMP = windres
-INCLUDES += -Istr/src -I../vendor/imgui -I../vendor/imgui/backends -I../vendor/GLFW/include -I../vendor/GL -I../vendor/stb_image -I../vendor/SOIL -I../vendor/glm -I../vendor/spdlog/include -I../vendor -I../vendor/glad -I. -I../vendor/X11
+INCLUDES += -Istr/src -Isrc -Isrc/core -I../vendor/imgui -I../vendor/imgui/backends -I../vendor/GLFW/include -I../vendor/GL -I../vendor/stb_image -I../vendor/SOIL -I../vendor/glm -I../vendor/spdlog/include -I../vendor -I../vendor/glad -I. -I../vendor/X11
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -81,9 +81,11 @@ GENERATED += $(OBJDIR)/Image.o
 GENERATED += $(OBJDIR)/Shader.o
 GENERATED += $(OBJDIR)/Vector.o
 GENERATED += $(OBJDIR)/Win.o
+GENERATED += $(OBJDIR)/cube.o
 GENERATED += $(OBJDIR)/imgui_impl_glfw.o
 GENERATED += $(OBJDIR)/imgui_impl_opengl3.o
 GENERATED += $(OBJDIR)/main.o
+GENERATED += $(OBJDIR)/numpy.o
 GENERATED += $(OBJDIR)/ply.o
 GENERATED += $(OBJDIR)/traingel.o
 OBJECTS += $(OBJDIR)/Font.o
@@ -91,9 +93,11 @@ OBJECTS += $(OBJDIR)/Image.o
 OBJECTS += $(OBJDIR)/Shader.o
 OBJECTS += $(OBJDIR)/Vector.o
 OBJECTS += $(OBJDIR)/Win.o
+OBJECTS += $(OBJDIR)/cube.o
 OBJECTS += $(OBJDIR)/imgui_impl_glfw.o
 OBJECTS += $(OBJDIR)/imgui_impl_opengl3.o
 OBJECTS += $(OBJDIR)/main.o
+OBJECTS += $(OBJDIR)/numpy.o
 OBJECTS += $(OBJDIR)/ply.o
 OBJECTS += $(OBJDIR)/traingel.o
 
@@ -159,6 +163,12 @@ endif
 # File Rules
 # #############################################
 
+$(OBJDIR)/cube.o: src/Loders/cube.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/numpy.o: src/Loders/numpy.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Font.o: src/core/Font.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"

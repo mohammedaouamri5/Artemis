@@ -7,12 +7,13 @@
 #include <string>
 #include <utility>
 
-namespace CORE { 
+namespace CORE {
 class Shader {
 private:
   char *source = nullptr;
   char *formated = nullptr;
   unsigned int shader = 0;
+
 public:
   // Constructor
   Shader(const std::string &format, GLuint shared);
@@ -27,11 +28,13 @@ public:
 
   template <typename... Args> char *GlShaderFormating(Args &&...args);
 
-  inline void GlCompileShader() { glCompileShader(shader); }
-  inline void GlShaderSource(GLuint shader, GLsizei count,
-                             const GLchar *const *string, const GLint *length) {
-    glShaderSource(shader, count, string, length);
+  inline void GLcompileShader() { glCompileShader(shader); }
+  inline void GLshaderSource(GLuint shader, GLsizei count, const GLchar *const *string, const GLint *length) {
+      glShaderSource(shader, count, string, length);
   }
+  inline void GLshaderSource() {
+    glShaderSource(this->shader, 1, &this->source, nullptr);
+  } 
   void checkShaderCompileStatus();
   void checkProgramLinkingStatus();
 
@@ -54,31 +57,10 @@ public:
   }
 };
 
-// Template method definitions
-
-template <typename... Args> char *Shader::format(Args &&...args) {
-  if (this->formated != nullptr) {
-    free(this->formated);
-    this->formated = nullptr;
-  }
-
-
-  std::string formatedStr =
-      fmt::format(source, std::forward<Args>(args)...);
-  this->formated = (char *)malloc(formatedStr.size() + 1);
-  std::memcpy(this->formated, formatedStr.c_str(), formatedStr.size());
-  this->formated[formatedStr.size()] = '\0'; // Null-terminate
-  return this->formated;
-}
-
 template <typename... Args> char *Shader::GlShaderFormating(Args &&...args) {
-  if (this->formated == nullptr) {
-    format(std::forward<Args>(args)...);
-  }
-
   glShaderSource(this->shader, 1, &this->formated, nullptr);
-  return this->formated;
+  return this->source;
 }
 
-};
+}; // namespace CORE
 #endif // SHADER_HPP
