@@ -46,12 +46,6 @@ void PLY::INIT() {
   const aiVector3D *__vertices = scene->mMeshes[0]->mVertices;
   const unsigned int length = scene->mMeshes[0]->mNumVertices;
 
-  
-  
-
-
-
-
   const unsigned int indiceSize = 3 * mesh->mNumFaces * sizeof(unsigned int);
   const unsigned int verticeSize = 4 * mesh->mNumVertices * sizeof(float);
   unsigned int *indices = (unsigned int *)malloc(indiceSize);
@@ -66,7 +60,7 @@ void PLY::INIT() {
       indices[i * 3 + 2] = mesh->mFaces[i].mIndices[2];
     }
   }
-  int nbCOLORS(0); 
+  int nbCOLORS(0);
   for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
     glm::vec4 vec(__vertices[i].x, __vertices[i].y, __vertices[i].z, 1.f);
     {
@@ -75,16 +69,15 @@ void PLY::INIT() {
       vertices[i * 4 + 2] = vec.z;
       vertices[i * 4 + 3] = vec.w;
     }
-    nbCOLORS+= mesh->HasVertexColors(i);
+    nbCOLORS += mesh->HasVertexColors(i);
   }
 
   auto end_ = std::chrono::high_resolution_clock::now();
 
   spdlog::info(
-                      "it took std::chrono::microseconds == {}",
-                      std::chrono::duration_cast<std::chrono::microseconds>(end_ - start_)
-                      .count()
-               );
+      "it took std::chrono::microseconds == {}",
+      std::chrono::duration_cast<std::chrono::microseconds>(end_ - start_)
+          .count());
 
   // Generate VAO, VBO, and EBO
   glGenVertexArrays(1, &VAO);
@@ -131,8 +124,6 @@ void PLY::INIT() {
                     FragColor = vec4(u_Color); 
                 }})",
                                     glCreateShader(GL_FRAGMENT_SHADER));
-
-
 
   vertexShader->GLshaderSource();
   vertexShader->GLcompileShader();
@@ -181,7 +172,7 @@ void PLY::RUN() {
   ImGui::DragFloat3("Camera Position", (float *)&cameraPosition[0], 0.1f);
   ImGui::DragFloat3("Look At", (float *)&cameraLookAt[0], 0.1f);
   ImGui::DragFloat3("Up", (float *)&Up[0], 0.1f);
-  ImGui::DragFloat4("Color", (float *)&color[0], 0.001f, 0.0f , 1.0f);
+  ImGui::DragFloat4("Color", (float *)&color[0], 0.001f, 0.0f, 1.0f);
   ImGui::Text("rending time: %ld", duration);
   ImGui::End();
 }

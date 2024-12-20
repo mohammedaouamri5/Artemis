@@ -1,4 +1,5 @@
 #include "traingel.hpp"
+#include "imgui.h"
 #include "src/core/Shader.hpp"
 #include <cmath>
 #include <cstdlib>
@@ -111,6 +112,7 @@ void Traingel::INIT() {
 
 void Traingel::RUN() {
   if (1) {
+    ImGui::ShowDemoWindow();
     glUseProgram(this->shaderProgram->getShader());
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, number_indices, GL_UNSIGNED_INT,

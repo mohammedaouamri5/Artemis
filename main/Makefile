@@ -76,10 +76,10 @@ endif
 GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/CubeLayout.o
 GENERATED += $(OBJDIR)/Font.o
 GENERATED += $(OBJDIR)/Image.o
 GENERATED += $(OBJDIR)/Shader.o
-GENERATED += $(OBJDIR)/Vector.o
 GENERATED += $(OBJDIR)/Win.o
 GENERATED += $(OBJDIR)/cube.o
 GENERATED += $(OBJDIR)/imgui_impl_glfw.o
@@ -88,10 +88,10 @@ GENERATED += $(OBJDIR)/main.o
 GENERATED += $(OBJDIR)/numpy.o
 GENERATED += $(OBJDIR)/ply.o
 GENERATED += $(OBJDIR)/traingel.o
+OBJECTS += $(OBJDIR)/CubeLayout.o
 OBJECTS += $(OBJDIR)/Font.o
 OBJECTS += $(OBJDIR)/Image.o
 OBJECTS += $(OBJDIR)/Shader.o
-OBJECTS += $(OBJDIR)/Vector.o
 OBJECTS += $(OBJDIR)/Win.o
 OBJECTS += $(OBJDIR)/cube.o
 OBJECTS += $(OBJDIR)/imgui_impl_glfw.o
@@ -163,10 +163,13 @@ endif
 # File Rules
 # #############################################
 
-$(OBJDIR)/cube.o: src/Loders/cube.cpp
+$(OBJDIR)/CubeLayout.o: src/CubeLayout.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/numpy.o: src/Loders/numpy.cpp
+$(OBJDIR)/cube.o: src/Loader/cube.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/numpy.o: src/Loader/numpy.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Font.o: src/core/Font.cpp
@@ -188,9 +191,6 @@ $(OBJDIR)/imgui_impl_opengl3.o: src/imgui/imgui_impl_opengl3.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: src/main.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Vector.o: src/math/Vector.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/ply.o: src/ply.cpp

@@ -48,8 +48,7 @@ void CORE::Win::INIT() {
 
   /* Initialize GLAD*/ {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-      LOG_ERROR("Failed to initialize GLAD");
-      exit(5);
+      LOG_CRITICAL("Failed to initialize GLAD");
     }
   }
 
@@ -68,7 +67,7 @@ void CORE::Win::INIT() {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
   }
-
+  glEnable(GL_DEPTH_TEST);
   // Initialize layouts
   for (Layout *&layout : this->Layouts)
     layout->INIT();
@@ -78,7 +77,7 @@ inline int Win::INIT_LOOP() {
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   return 0;
 }
 

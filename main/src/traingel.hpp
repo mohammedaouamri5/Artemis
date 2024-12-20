@@ -17,7 +17,7 @@ public:
   std::vector<float> color; 
 private:
   CORE::Shader *shaderProgram;
-  GLuint VAO, VBO,VBC, EBO; 
+  unsigned int VAO, VBO,VBC, EBO; 
   
 
 };

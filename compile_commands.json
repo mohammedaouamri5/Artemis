@@ -1375,6 +1375,40 @@
       "-std=c++17",
       "-c",
       "-o",
+      "../bin-int/Debug-linux-x86_64/Artimes/CubeLayout.o",
+      "src/CubeLayout.cpp"
+    ],
+    "directory": "/home/mohammedaouamri/DEV/Artemis/main",
+    "file": "/home/mohammedaouamri/DEV/Artemis/main/src/CubeLayout.cpp",
+    "output": "/home/mohammedaouamri/DEV/Artemis/bin-int/Debug-linux-x86_64/Artimes/CubeLayout.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-DSPDLOG_COMPILED_LIB",
+      "-DSPDLOG_ACTIVE_LEVEL",
+      "-DSPDLOG_FMT_EXTERNAL",
+      "-DWL_DEBUG",
+      "-Istr/src",
+      "-Isrc",
+      "-Isrc/core",
+      "-I../vendor/imgui",
+      "-I../vendor/imgui/backends",
+      "-I../vendor/GLFW/include",
+      "-I../vendor/GL",
+      "-I../vendor/stb_image",
+      "-I../vendor/SOIL",
+      "-I../vendor/glm",
+      "-I../vendor/spdlog/include",
+      "-I../vendor",
+      "-I../vendor/glad",
+      "-I.",
+      "-I../vendor/X11",
+      "-m64",
+      "-g",
+      "-std=c++17",
+      "-c",
+      "-o",
       "../bin-int/Debug-linux-x86_64/Artimes/Font.o",
       "src/core/Font.cpp"
     ],
@@ -1422,7 +1456,6 @@
       "-DSPDLOG_COMPILED_LIB",
       "-DSPDLOG_ACTIVE_LEVEL",
       "-DSPDLOG_FMT_EXTERNAL",
-      i
       "-DWL_DEBUG",
       "-Istr/src",
       "-Isrc",
@@ -1450,40 +1483,6 @@
     "directory": "/home/mohammedaouamri/DEV/Artemis/main",
     "file": "/home/mohammedaouamri/DEV/Artemis/main/src/core/Shader.cpp",
     "output": "/home/mohammedaouamri/DEV/Artemis/bin-int/Debug-linux-x86_64/Artimes/Shader.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-DSPDLOG_COMPILED_LIB",
-      "-DSPDLOG_ACTIVE_LEVEL",
-      "-DSPDLOG_FMT_EXTERNAL",
-      "-DWL_DEBUG",
-      "-Istr/src",
-      "-Isrc",
-      "-Isrc/core",
-      "-I../vendor/imgui",
-      "-I../vendor/imgui/backends",
-      "-I../vendor/GLFW/include",
-      "-I../vendor/GL",
-      "-I../vendor/stb_image",
-      "-I../vendor/SOIL",
-      "-I../vendor/glm",
-      "-I../vendor/spdlog/include",
-      "-I../vendor",
-      "-I../vendor/glad",
-      "-I.",
-      "-I../vendor/X11",
-      "-m64",
-      "-g",
-      "-std=c++17",
-      "-c",
-      "-o",
-      "../bin-int/Debug-linux-x86_64/Artimes/Vector.o",
-      "src/math/Vector.cpp"
-    ],
-    "directory": "/home/mohammedaouamri/DEV/Artemis/main",
-    "file": "/home/mohammedaouamri/DEV/Artemis/main/src/math/Vector.cpp",
-    "output": "/home/mohammedaouamri/DEV/Artemis/bin-int/Debug-linux-x86_64/Artimes/Vector.o"
   },
   {
     "arguments": [
@@ -1547,10 +1546,10 @@
       "-c",
       "-o",
       "../bin-int/Debug-linux-x86_64/Artimes/cube.o",
-      "src/Loders/cube.cpp"
+      "src/Loader/cube.cpp"
     ],
     "directory": "/home/mohammedaouamri/DEV/Artemis/main",
-    "file": "/home/mohammedaouamri/DEV/Artemis/main/src/Loders/cube.cpp",
+    "file": "/home/mohammedaouamri/DEV/Artemis/main/src/Loader/cube.cpp",
     "output": "/home/mohammedaouamri/DEV/Artemis/bin-int/Debug-linux-x86_64/Artimes/cube.o"
   },
   {
@@ -1683,10 +1682,10 @@
       "-c",
       "-o",
       "../bin-int/Debug-linux-x86_64/Artimes/numpy.o",
-      "src/Loders/numpy.cpp"
+      "src/Loader/numpy.cpp"
     ],
     "directory": "/home/mohammedaouamri/DEV/Artemis/main",
-    "file": "/home/mohammedaouamri/DEV/Artemis/main/src/Loders/numpy.cpp",
+    "file": "/home/mohammedaouamri/DEV/Artemis/main/src/Loader/numpy.cpp",
     "output": "/home/mohammedaouamri/DEV/Artemis/bin-int/Debug-linux-x86_64/Artimes/numpy.o"
   },
   {
