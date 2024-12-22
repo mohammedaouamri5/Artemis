@@ -7,7 +7,7 @@
 #include <string>
 #include <fstream>
 
-#include </home/omni/Desktop/me/Artemis/vendor/glad/glad.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 
