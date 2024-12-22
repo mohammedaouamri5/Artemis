@@ -1,7 +1,10 @@
 
 #include <glad/glad.h>
-#include "Win.hpp"
+
+#include "Font.hpp"
 #include "Layout.hpp"
+#include "Win.hpp"
+#include "imgui.h"
 #include "src/imgui/imgui_impl_glfw.h"
 #include "src/imgui/imgui_impl_opengl3.h"
 #include <core/LOG.hpp>
@@ -67,16 +70,21 @@ void CORE::Win::INIT() {
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
   }
+
   glEnable(GL_DEPTH_TEST);
+
+  this->font.INIT();
   // Initialize layouts
   for (Layout *&layout : this->Layouts)
     layout->INIT();
 }
 
 inline int Win::INIT_LOOP() {
+
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
+  // this->font->USE();
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   return 0;
 }
@@ -88,10 +96,14 @@ void CORE::Win::RUN() {
 
     for (Layout *&layout : this->Layouts)
       layout->RUN();
+
+    ImGui::ShowDemoWindow();
     this->CLEAR_LOOP();
   }
 }
+
 inline void Win::CLEAR_LOOP() {
+  // this->font->UNUSE();
   ImGui::Render();
   glClear(0);
   ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -4,11 +4,14 @@
 
 #include "Layout.hpp"
 #include <GLFW/glfw3.h> // Will drag system OpenGL headers
+#include <core/Font.hpp>
+#include <optional>
 #include <vector>
 namespace CORE {
 
 class Win {
 public:
+  Win() :  font("fonts/FiraCodeNerdFontMono-Regular.ttf", 32.0f) {} 
   void INIT();
   int INIT_LOOP();
   void RUN();
@@ -17,6 +20,7 @@ public:
   void CLOSE();
 
 private:
+  CORE::Font font; // ("fonts/FiraCodeNerdFontMono-Regular.ttf", 32.0f);
   std::vector<Layout *> Layouts{};
   GLFWwindow *window;
 };

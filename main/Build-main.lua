@@ -22,6 +22,7 @@ includedirs {
    "../vendor/GLFW/include",
    "../vendor/GL",
    "../vendor/stb_image",
+   "../vendor/cnpy",
    "../vendor/SOIL",
    "../vendor/glm",
    "../vendor/spdlog/include",
@@ -36,7 +37,8 @@ includedirs {
 
 links {
    "ImGui", "stb_image", "SOIL", "assimp",
-   "GLFW", "GL", "glad", "fmt", "spdlog"
+   "GLFW", "GL", "glad", "fmt", "spdlog", 
+   "cnpy" , "z" , "eigen"
 }
 
 targetdir("../build/" .. outputdir .. "/%{prj.name}")

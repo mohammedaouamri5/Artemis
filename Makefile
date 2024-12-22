@@ -16,6 +16,7 @@ ifeq ($(config),debug)
   stb_image_config = debug
   SOIL_config = debug
   GLAD_config = debug
+  cnpy_config = debug
   Artimes_config = debug
 
 else ifeq ($(config),release)
@@ -26,6 +27,7 @@ else ifeq ($(config),release)
   stb_image_config = release
   SOIL_config = release
   GLAD_config = release
+  cnpy_config = release
   Artimes_config = release
 
 else ifeq ($(config),dist)
@@ -36,19 +38,20 @@ else ifeq ($(config),dist)
   stb_image_config = dist
   SOIL_config = dist
   GLAD_config = dist
+  cnpy_config = dist
   Artimes_config = dist
 
 else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := ImGui GLFW yaml-cpp spdlog stb_image SOIL GLAD Artimes
+PROJECTS := ImGui GLFW yaml-cpp spdlog stb_image SOIL GLAD cnpy Artimes
 
 .PHONY: all clean help $(PROJECTS) Dependencies
 
 all: $(PROJECTS)
 
-Dependencies: GLAD GLFW ImGui SOIL spdlog stb_image yaml-cpp
+Dependencies: GLAD GLFW ImGui SOIL cnpy spdlog stb_image yaml-cpp
 
 ImGui:
 ifneq (,$(ImGui_config))
@@ -92,7 +95,13 @@ ifneq (,$(GLAD_config))
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile config=$(GLAD_config)
 endif
 
-Artimes: ImGui stb_image SOIL GLFW GLAD spdlog
+cnpy:
+ifneq (,$(cnpy_config))
+	@echo "==== Building cnpy ($(cnpy_config)) ===="
+	@${MAKE} --no-print-directory -C vendor/cnpy -f Makefile config=$(cnpy_config)
+endif
+
+Artimes: ImGui stb_image SOIL GLFW GLAD spdlog cnpy
 ifneq (,$(Artimes_config))
 	@echo "==== Building Artimes ($(Artimes_config)) ===="
 	@${MAKE} --no-print-directory -C main -f Makefile config=$(Artimes_config)
@@ -106,6 +115,7 @@ clean:
 	@${MAKE} --no-print-directory -C vendor/stb_image -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/SOIL -f Makefile clean
 	@${MAKE} --no-print-directory -C vendor/glad -f Makefile clean
+	@${MAKE} --no-print-directory -C vendor/cnpy -f Makefile clean
 	@${MAKE} --no-print-directory -C main -f Makefile clean
 
 help:
@@ -126,6 +136,7 @@ help:
 	@echo "   stb_image"
 	@echo "   SOIL"
 	@echo "   GLAD"
+	@echo "   cnpy"
 	@echo "   Artimes"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

@@ -1,5 +1,6 @@
 
 #include "CubeLayout.hpp"
+#include "NumpyLayou.hpp"
 #include <core/LOG.hpp>
 #include <core/Win.hpp>
 
@@ -20,6 +21,7 @@ int main(int argc, char **argv) {
   // win->ADD((CORE::Layout *)new PLY(argv[1]));
   // win->ADD((CORE::Layout *)new Traingel());
   win->ADD((CORE::Layout *)new CubeLayout("W0W"));
+  win->ADD((CORE::Layout *)new NumpyLayout());
   win->INIT();
   win->RUN();
   win->CLOSE();
