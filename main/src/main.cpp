@@ -17,6 +17,7 @@ int main() {
 
   shader_program shader("main/src/shaders/basicvertex.art",
                         "main/src/shaders/basicfragment.art");
+  // assets is a folder containing the meshes
   plyobject test("assets/untitled.ply");
   
   CORE::Win *win = new CORE::Win();
