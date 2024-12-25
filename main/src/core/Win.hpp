@@ -11,7 +11,7 @@ namespace CORE {
 
 class Win {
 public:
-  Win() :  font("fonts/FiraCodeNerdFontMono-Regular.ttf", 32.0f) {} 
+  Win() :  font("assist/fonts/FiraCodeNerdFontMono-Regular.ttf", 32.0f) {} 
   void INIT();
   int INIT_LOOP();
   void RUN();

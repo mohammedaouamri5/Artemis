@@ -67,17 +67,17 @@ public:
   }
 
   float *GetVertices() /* override */;
-  uint16_t GetNbVertices() /* override */;
-  uint16_t GetSizeVertices() /* override */;
-  uint16_t GetDimVertices() /* override */;
+  uint64_t GetNbVertices() /* override */;
+  uint64_t GetSizeVertices() /* override */;
+  uint64_t GetDimVertices() /* override */;
   unsigned int *GetIndices() /* override */;
-  uint16_t GetNbIndices() /* override */;
-  uint16_t GetSizeIndices() /* override */;
-  uint16_t GetDimIndices() /* override */;
+  uint64_t GetNbIndices() /* override */;
+  uint64_t GetSizeIndices() /* override */;
+  uint64_t GetDimIndices() /* override */;
   float *GetColor() /* override */;
-  uint16_t GetNbColor() /* override */;
-  uint16_t GetSizeColor() /* override */;
-  uint16_t GetDimColor() /* override */;
+  uint64_t GetNbColor() /* override */;
+  uint64_t GetSizeColor() /* override */;
+  uint64_t GetDimColor() /* override */;
 };
 } // namespace Loader
 

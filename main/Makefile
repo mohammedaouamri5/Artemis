@@ -38,7 +38,7 @@ OBJDIR = ../bin-int/Debug-linux-x86_64/Artimes
 DEFINES += -DSPDLOG_COMPILED_LIB -DSPDLOG_ACTIVE_LEVEL -DSPDLOG_FMT_EXTERNAL -DWL_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
-LIBS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Debug-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/Debug-linux-x86_64/cnpy/libcnpy.a -lassimp -lGL -lfmt -lz -leigen3 -lX11 -lXrandr -lXi
+LIBS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Debug-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/Debug-linux-x86_64/cnpy/libcnpy.a -lassimp -lGL -lfmt -lz -lX11 -lXrandr -lXi
 LDDEPS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Debug-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/Debug-linux-x86_64/cnpy/libcnpy.a
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
@@ -49,7 +49,7 @@ OBJDIR = ../bin-int/Release-linux-x86_64/Artimes
 DEFINES += -DSPDLOG_COMPILED_LIB -DSPDLOG_ACTIVE_LEVEL -DSPDLOG_FMT_EXTERNAL -DWL_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g -std=c++17
-LIBS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Release-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/Release-linux-x86_64/cnpy/libcnpy.a -lassimp -lGL -lfmt -lz -leigen3 -lX11 -lXrandr -lXi
+LIBS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Release-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/Release-linux-x86_64/cnpy/libcnpy.a -lassimp -lGL -lfmt -lz -lX11 -lXrandr -lXi
 LDDEPS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Release-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/Release-linux-x86_64/cnpy/libcnpy.a
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
@@ -60,7 +60,7 @@ OBJDIR = ../bin-int/Dist-linux-x86_64/Artimes
 DEFINES += -DSPDLOG_COMPILED_LIB -DSPDLOG_ACTIVE_LEVEL -DSPDLOG_FMT_EXTERNAL -DWL_DIST
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
-LIBS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Dist-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/Dist-linux-x86_64/cnpy/libcnpy.a -lassimp -lGL -lfmt -lz -leigen3 -lX11 -lXrandr -lXi
+LIBS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Dist-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/Dist-linux-x86_64/cnpy/libcnpy.a -lassimp -lGL -lfmt -lz -lX11 -lXrandr -lXi
 LDDEPS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Dist-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/Dist-linux-x86_64/cnpy/libcnpy.a
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
 
@@ -82,6 +82,7 @@ GENERATED += $(OBJDIR)/Image.o
 GENERATED += $(OBJDIR)/Numpy.o
 GENERATED += $(OBJDIR)/NumpyLayou.o
 GENERATED += $(OBJDIR)/Shader.o
+GENERATED += $(OBJDIR)/VAOLayer.o
 GENERATED += $(OBJDIR)/Win.o
 GENERATED += $(OBJDIR)/cube.o
 GENERATED += $(OBJDIR)/imgui_impl_glfw.o
@@ -95,6 +96,7 @@ OBJECTS += $(OBJDIR)/Image.o
 OBJECTS += $(OBJDIR)/Numpy.o
 OBJECTS += $(OBJDIR)/NumpyLayou.o
 OBJECTS += $(OBJDIR)/Shader.o
+OBJECTS += $(OBJDIR)/VAOLayer.o
 OBJECTS += $(OBJDIR)/Win.o
 OBJECTS += $(OBJDIR)/cube.o
 OBJECTS += $(OBJDIR)/imgui_impl_glfw.o
@@ -175,6 +177,9 @@ $(OBJDIR)/cube.o: src/Loader/cube.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/NumpyLayou.o: src/NumpyLayou.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/VAOLayer.o: src/VAOLayer.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Font.o: src/core/Font.cpp

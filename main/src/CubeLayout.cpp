@@ -76,9 +76,9 @@ void CubeLayout::INIT() {
   glBindVertexArray(0);
 
   // Initialize shaders
-  vertexShader = new CORE::Shader("shaders/cube_vertex.glsl",
+  vertexShader = new CORE::Shader("assist/shaders/cube_vertex.glsl",
                                   glCreateShader(GL_VERTEX_SHADER));
-  fragmentShader = new CORE::Shader("shaders/cube_fragment.glsl",
+  fragmentShader = new CORE::Shader("assist/shaders/cube_fragment.glsl",
                                     glCreateShader(GL_FRAGMENT_SHADER));
 
   // Load, compile, and check vertex shader
@@ -119,9 +119,14 @@ void CubeLayout::RUN() {
 
   // Bind VAO and render elements
   glBindVertexArray(VAO);
-  glDrawElements(GL_TRIANGLES, cube->GetNbIndices() * 3, GL_UNSIGNED_INT,
-                 nullptr);
+  glDrawElements(GL_TRIANGLES,3, GL_UNSIGNED_INT, nullptr);
   glBindVertexArray(0);
+
+
+
+
+
+
 
   auto end = std::chrono::high_resolution_clock::now();
   auto duration =

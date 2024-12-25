@@ -37,23 +37,23 @@
 
 namespace Loader {
 float *Cube::GetVertices() { return this->Vetexs; }
-uint16_t Cube::GetNbVertices() { return 8; }
-uint16_t Cube::GetDimVertices() { return 4; }
-uint16_t Cube::GetSizeVertices() {
+uint64_t Cube::GetNbVertices() { return 8; }
+uint64_t Cube::GetDimVertices() { return 4; }
+uint64_t Cube::GetSizeVertices() {
   return GetNbVertices() * sizeof(float) * GetDimVertices();
 }
 
 unsigned int *Cube::GetIndices() { return this->Element; }
-uint16_t Cube::GetNbIndices() { return 12; }
-uint16_t Cube::GetDimIndices() { return 3; }
-uint16_t Cube::GetSizeIndices() {
+uint64_t Cube::GetNbIndices() { return 12; }
+uint64_t Cube::GetDimIndices() { return 3; }
+uint64_t Cube::GetSizeIndices() {
   return GetNbIndices() * sizeof(unsigned int) * GetDimIndices();
 }
 
 float *Cube::GetColor() { return this->Color; }
-uint16_t Cube::GetNbColor() { return 8; }
-uint16_t Cube::GetDimColor() { return 4; }
-uint16_t Cube::GetSizeColor() {
+uint64_t Cube::GetNbColor() { return 8; }
+uint64_t Cube::GetDimColor() { return 4; }
+uint64_t Cube::GetSizeColor() {
   return GetNbColor() * sizeof(float) * GetDimColor();
 }
 

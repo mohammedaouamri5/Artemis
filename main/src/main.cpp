@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
   CORE::Win *win = new CORE::Win();
   // win->ADD((CORE::Layout *)new PLY(argv[1]));
   // win->ADD((CORE::Layout *)new Traingel());
-  win->ADD((CORE::Layout *)new CubeLayout("W0W"));
+  // win->ADD((CORE::Layout *)new CubeLayout("W0W"));
   win->ADD((CORE::Layout *)new NumpyLayout());
   win->INIT();
   win->RUN();

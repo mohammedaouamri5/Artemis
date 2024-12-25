@@ -1,6 +1,6 @@
 
-#include "LOG.hpp"
 #include "Shader.hpp"
+#include "LOG.hpp"
 #include <cstdio>
 #include <cstdlib>
 #include <fmt/base.h>
@@ -11,12 +11,15 @@
 
 namespace CORE {
 // Access the shader source as const char*
+
+Shader::Shader() {}
 Shader::Shader(const std::string &__str, GLuint shared) {
-  
+
   this->shader = shared;
 
- if (__str.empty()) return ; 
- 
+  if (__str.empty())
+    return;
+
   FILE *file = fopen(__str.c_str(), "r");
   if (file == NULL) {
     LOG_INFO("File not found {}", __str);

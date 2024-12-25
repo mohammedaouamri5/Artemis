@@ -38,7 +38,7 @@ includedirs {
 links {
    "ImGui", "stb_image", "SOIL", "assimp",
    "GLFW", "GL", "glad", "fmt", "spdlog", 
-   "cnpy" , "z" , "eigen"
+   "cnpy" , "z" 
 }
 
 targetdir("../build/" .. outputdir .. "/%{prj.name}")

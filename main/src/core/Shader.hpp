@@ -15,6 +15,7 @@ private:
   unsigned int shader = 0;
 
 public:
+  Shader();
   // Constructor
   Shader(const std::string &format, GLuint shared);
 
@@ -29,12 +30,13 @@ public:
   template <typename... Args> char *GlShaderFormating(Args &&...args);
 
   inline void GLcompileShader() { glCompileShader(shader); }
-  inline void GLshaderSource(GLuint shader, GLsizei count, const GLchar *const *string, const GLint *length) {
-      glShaderSource(shader, count, string, length);
+  inline void GLshaderSource(GLuint shader, GLsizei count,
+                             const GLchar *const *string, const GLint *length) {
+    glShaderSource(shader, count, string, length);
   }
   inline void GLshaderSource() {
     glShaderSource(this->shader, 1, &this->source, nullptr);
-  } 
+  }
   void checkShaderCompileStatus();
   void checkProgramLinkingStatus();
 

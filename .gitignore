@@ -26,6 +26,7 @@ Makfile
 
 *.ini
 *.npy
+*.ply
 
 # Exclude
  

@@ -80,7 +80,6 @@ void CORE::Win::INIT() {
 }
 
 inline int Win::INIT_LOOP() {
-
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
@@ -97,7 +96,6 @@ void CORE::Win::RUN() {
     for (Layout *&layout : this->Layouts)
       layout->RUN();
 
-    ImGui::ShowDemoWindow();
     this->CLEAR_LOOP();
   }
 }
