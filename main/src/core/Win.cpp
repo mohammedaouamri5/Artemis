@@ -33,7 +33,7 @@ void CORE::Win::INIT() {
   }
 
   // Create a windowed mode window and its OpenGL context
-  window = glfwCreateWindow(800, 800, "OpenGL with ImGui", NULL, NULL);
+  window = glfwCreateWindow(width, height, "Artemis", NULL, NULL);
   if (!window) {
     spdlog::error("Failed to create GLFW window");
     glfwTerminate();
@@ -65,6 +65,8 @@ void CORE::Win::INIT() {
   ImGui_ImplGlfw_InitForOpenGL(window, true);
   ImGui_ImplOpenGL3_Init("#version 330");
 
+  glEnable(GL_DEPTH); 
+
   // Initialize layouts
   for (Layout *&layout : this->Layouts)
     layout->INIT();
@@ -74,7 +76,7 @@ inline int Win::INIT_LOOP() {
   ImGui_ImplOpenGL3_NewFrame();
   ImGui_ImplGlfw_NewFrame();
   ImGui::NewFrame();
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT  );
   return 0;
 }
 
@@ -88,6 +90,7 @@ void CORE::Win::RUN() {
     this->CLEAR_LOOP();
   }
 }
+
 inline void Win::CLEAR_LOOP() {
   ImGui::Render();
   glClear(0);
@@ -110,3 +113,7 @@ void Win::CLOSE() {
   glfwTerminate();
 }
 } // namespace CORE
+
+GLFWwindow* CORE::Win::Return_ptr(){
+  return window;
+}

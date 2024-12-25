@@ -15,10 +15,14 @@ public:
   void ADD(Layout *layout) { Layouts.push_back(layout); }
   void CLEAR_LOOP();
   void CLOSE();
+  GLFWwindow* Return_ptr();
+  int height =800;
+  int width =900;
 
 private:
   std::vector<Layout *> Layouts{};
   GLFWwindow *window;
+
 };
 
 } // namespace CORE
