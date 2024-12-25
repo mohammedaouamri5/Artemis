@@ -38,8 +38,6 @@ void NumpyLayout::RUN() {
     ImGui::Text("START");
     numpy->Mesh();
     ImGui::Text("END");
-  }
-  if (ImGui::Button("ADD")) {
     VAOLayout *WOW = new VAOLayout(std::to_string(rand()));
     LOG_INFO("VAO : {} \nprogram : {} \nIndeces : {}", WOW->VAO, WOW->program.getShader(), WOW->Indeces);
     numpy->INIT_THE_DROW(&WOW->VAO, &WOW->program, &WOW->Indeces);
