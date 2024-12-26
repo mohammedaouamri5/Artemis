@@ -7,11 +7,14 @@
       "-DSPDLOG_FMT_EXTERNAL",
       "-DWL_DEBUG",
       "-Istr/src",
+      "-Isrc",
+      "-Isrc/core",
       "-I../vendor/imgui",
       "-I../vendor/imgui/backends",
       "-I../vendor/GLFW/include",
       "-I../vendor/GL",
       "-I../vendor/stb_image",
+      "-I../vendor/cnpy",
       "-I../vendor/SOIL",
       "-I../vendor/glm",
       "-I../vendor/spdlog/include",
@@ -24,11 +27,11 @@
       "-std=c++17",
       "-c",
       "-o",
-      "../bin-int/Debug-linux-x86_64/Artimes/ply.o",
-      "src/ply.cpp"
+      "../bin-int/Debug-linux-x86_64/Artemis/VAO.o",
+      "src/core/VAO.cpp"
     ],
     "directory": "/home/mohammedaouamri/DEV/Artemis/main",
-    "file": "/home/mohammedaouamri/DEV/Artemis/main/src/ply.cpp",
-    "output": "/home/mohammedaouamri/DEV/Artemis/bin-int/Debug-linux-x86_64/Artimes/ply.o"
+    "file": "/home/mohammedaouamri/DEV/Artemis/main/src/core/VAO.cpp",
+    "output": "/home/mohammedaouamri/DEV/Artemis/bin-int/Debug-linux-x86_64/Artemis/VAO.o"
   }
 ]

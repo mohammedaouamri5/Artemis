@@ -1,4 +1,4 @@
-project "Artimes"
+project "Artemis"
 kind "ConsoleApp"
 language "C++"
 cppdialect "C++17"
@@ -15,11 +15,14 @@ files { "src/**.h", "src/**.cpp", "src/**.c", "src/**.hpp", "src/**.tpp" }
 
 includedirs {
    "str/src",
+   "src",
+   "src/core",
    "../vendor/imgui",
    "../vendor/imgui/backends/",
    "../vendor/GLFW/include",
    "../vendor/GL",
    "../vendor/stb_image",
+   "../vendor/cnpy",
    "../vendor/SOIL",
    "../vendor/glm",
    "../vendor/spdlog/include",
@@ -34,7 +37,8 @@ includedirs {
 
 links {
    "ImGui", "stb_image", "SOIL", "assimp",
-   "GLFW", "GL", "glad", "fmt", "spdlog"
+   "GLFW", "GL", "glad", "fmt", "spdlog", 
+   "cnpy" , "z"
 }
 
 targetdir("../build/" .. outputdir .. "/%{prj.name}")

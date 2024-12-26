@@ -19,7 +19,7 @@ endif
 # #############################################
 
 RESCOMP = windres
-INCLUDES += -Istr/src -I../vendor/imgui -I../vendor/imgui/backends -I../vendor/GLFW/include -I../vendor/GL -I../vendor/stb_image -I../vendor/SOIL -I../vendor/glm -I../vendor/spdlog/include -I../vendor -I../vendor/glad -I. -I../vendor/X11
+INCLUDES += -Istr/src -Isrc -Isrc/core -I../vendor/imgui -I../vendor/imgui/backends -I../vendor/GLFW/include -I../vendor/GL -I../vendor/stb_image -I../vendor/cnpy -I../vendor/SOIL -I../vendor/glm -I../vendor/spdlog/include -I../vendor -I../vendor/glad -I. -I../vendor/X11
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -32,36 +32,36 @@ define POSTBUILDCMDS
 endef
 
 ifeq ($(config),debug)
-TARGETDIR = ../build/Debug-linux-x86_64/Artimes
-TARGET = $(TARGETDIR)/Artimes
-OBJDIR = ../bin-int/Debug-linux-x86_64/Artimes
+TARGETDIR = ../build/Debug-linux-x86_64/Artemis
+TARGET = $(TARGETDIR)/Artemis
+OBJDIR = ../bin-int/Debug-linux-x86_64/Artemis
 DEFINES += -DSPDLOG_COMPILED_LIB -DSPDLOG_ACTIVE_LEVEL -DSPDLOG_FMT_EXTERNAL -DWL_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
-LIBS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Debug-linux-x86_64/spdlog/libspdlog.a -lassimp -lGL -lfmt -lX11 -lXrandr -lXi
-LDDEPS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Debug-linux-x86_64/spdlog/libspdlog.a
+LIBS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Debug-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/cnpy/libcnpy.a -lassimp -lGL -lfmt -lz -lX11 -lXrandr -lXi
+LDDEPS += ../vendor/imgui/bin/Debug-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Debug-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Debug-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Debug-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Debug-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Debug-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/cnpy/libcnpy.a
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
 else ifeq ($(config),release)
-TARGETDIR = ../build/Release-linux-x86_64/Artimes
-TARGET = $(TARGETDIR)/Artimes
-OBJDIR = ../bin-int/Release-linux-x86_64/Artimes
+TARGETDIR = ../build/Release-linux-x86_64/Artemis
+TARGET = $(TARGETDIR)/Artemis
+OBJDIR = ../bin-int/Release-linux-x86_64/Artemis
 DEFINES += -DSPDLOG_COMPILED_LIB -DSPDLOG_ACTIVE_LEVEL -DSPDLOG_FMT_EXTERNAL -DWL_RELEASE
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -g -std=c++17
-LIBS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Release-linux-x86_64/spdlog/libspdlog.a -lassimp -lGL -lfmt -lX11 -lXrandr -lXi
-LDDEPS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Release-linux-x86_64/spdlog/libspdlog.a
+LIBS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Release-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/cnpy/libcnpy.a -lassimp -lGL -lfmt -lz -lX11 -lXrandr -lXi
+LDDEPS += ../vendor/imgui/bin/Release-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Release-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Release-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Release-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Release-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Release-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/cnpy/libcnpy.a
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
 
 else ifeq ($(config),dist)
-TARGETDIR = ../build/Dist-linux-x86_64/Artimes
-TARGET = $(TARGETDIR)/Artimes
-OBJDIR = ../bin-int/Dist-linux-x86_64/Artimes
+TARGETDIR = ../build/Dist-linux-x86_64/Artemis
+TARGET = $(TARGETDIR)/Artemis
+OBJDIR = ../bin-int/Dist-linux-x86_64/Artemis
 DEFINES += -DSPDLOG_COMPILED_LIB -DSPDLOG_ACTIVE_LEVEL -DSPDLOG_FMT_EXTERNAL -DWL_DIST
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
-LIBS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Dist-linux-x86_64/spdlog/libspdlog.a -lassimp -lGL -lfmt -lX11 -lXrandr -lXi
-LDDEPS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Dist-linux-x86_64/spdlog/libspdlog.a
+LIBS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Dist-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/cnpy/libcnpy.a -lassimp -lGL -lfmt -lz -lX11 -lXrandr -lXi
+LDDEPS += ../vendor/imgui/bin/Dist-linux-x86_64/ImGui/libImGui.a ../vendor/stb_image/bin/Dist-linux-x86_64/stb_image/libstb_image.a ../vendor/SOIL/bin/Dist-linux-x86_64/SOIL/libSOIL.a ../vendor/GLFW/bin/Dist-linux-x86_64/GLFW/libGLFW.a ../vendor/glad/bin/Dist-linux-x86_64/GLAD/libGLAD.a ../vendor/spdlog/bin/Dist-linux-x86_64/spdlog/libspdlog.a ../vendor/cnpy/bin/cnpy/libcnpy.a
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
 
 endif
@@ -76,26 +76,34 @@ endif
 GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/Camera.o
 GENERATED += $(OBJDIR)/Font.o
 GENERATED += $(OBJDIR)/Image.o
+GENERATED += $(OBJDIR)/Inspector.o
+GENERATED += $(OBJDIR)/Numpy.o
 GENERATED += $(OBJDIR)/Shader.o
+GENERATED += $(OBJDIR)/VAO.o
 GENERATED += $(OBJDIR)/Vector.o
 GENERATED += $(OBJDIR)/Win.o
+GENERATED += $(OBJDIR)/cube.o
 GENERATED += $(OBJDIR)/imgui_impl_glfw.o
 GENERATED += $(OBJDIR)/imgui_impl_opengl3.o
 GENERATED += $(OBJDIR)/main.o
-GENERATED += $(OBJDIR)/ply.o
-GENERATED += $(OBJDIR)/traingel.o
+GENERATED += $(OBJDIR)/shaderloader.o
+OBJECTS += $(OBJDIR)/Camera.o
 OBJECTS += $(OBJDIR)/Font.o
 OBJECTS += $(OBJDIR)/Image.o
+OBJECTS += $(OBJDIR)/Inspector.o
+OBJECTS += $(OBJDIR)/Numpy.o
 OBJECTS += $(OBJDIR)/Shader.o
+OBJECTS += $(OBJDIR)/VAO.o
 OBJECTS += $(OBJDIR)/Vector.o
 OBJECTS += $(OBJDIR)/Win.o
+OBJECTS += $(OBJDIR)/cube.o
 OBJECTS += $(OBJDIR)/imgui_impl_glfw.o
 OBJECTS += $(OBJDIR)/imgui_impl_opengl3.o
 OBJECTS += $(OBJDIR)/main.o
-OBJECTS += $(OBJDIR)/ply.o
-OBJECTS += $(OBJDIR)/traingel.o
+OBJECTS += $(OBJDIR)/shaderloader.o
 
 # Rules
 # #############################################
@@ -105,7 +113,7 @@ all: $(TARGET)
 
 $(TARGET): $(GENERATED) $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
 	$(PRELINKCMDS)
-	@echo Linking Artimes
+	@echo Linking Artemis
 	$(SILENT) $(LINKCMD)
 	$(POSTBUILDCMDS)
 
@@ -126,7 +134,7 @@ else
 endif
 
 clean:
-	@echo Cleaning Artimes
+	@echo Cleaning Artemis
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
 	$(SILENT) rm -rf $(GENERATED)
@@ -159,6 +167,18 @@ endif
 # File Rules
 # #############################################
 
+$(OBJDIR)/Inspector.o: src/Inspector.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Numpy.o: src/Loader/Numpy.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/cube.o: src/Loader/cube.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Camera.o: src/core/Camera.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Font.o: src/core/Font.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -168,7 +188,13 @@ $(OBJDIR)/Image.o: src/core/Image.cpp
 $(OBJDIR)/Shader.o: src/core/Shader.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/VAO.o: src/core/VAO.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Win.o: src/core/Win.cpp
+	@echo "$(notdir $<)"
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/shaderloader.o: src/core/shaderloader.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/imgui_impl_glfw.o: src/imgui/imgui_impl_glfw.cpp
@@ -181,12 +207,6 @@ $(OBJDIR)/main.o: src/main.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Vector.o: src/math/Vector.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/ply.o: src/ply.cpp
-	@echo "$(notdir $<)"
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/traingel.o: src/traingel.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
