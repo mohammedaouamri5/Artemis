@@ -4,7 +4,6 @@
 #include "VAO.hpp"
 #include "glad/glad.h"
 #include "imgui.h"
-#include "plyobject.hpp"
 
 #include <Camera.hpp>
 #include <Win.hpp>
