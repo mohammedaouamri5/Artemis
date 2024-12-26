@@ -23,7 +23,6 @@ public:
   ~Cube() = default;
 
   Cube() {
-
     this->Vetexs = (float *)malloc(GetSizeVertices());
     this->Color = (float *)malloc(GetSizeColor());
     this->Element = (unsigned int *)malloc(GetSizeIndices());
@@ -42,15 +41,15 @@ public:
 
     unsigned int tempIndices[] = {
         0, 1, 4, // face 0
-        5, 1, 4, // face 1
+        1, 4, 5, // face 1
         0, 4, 6, // face 2
         0, 2, 6, // face 3
-        0, 2, 1, // face 4
-        3, 2, 1, // face 5
-        3, 2, 6, // face 6
-        3, 7, 6, // face 7
-        3, 7, 1, // face 8
-        5, 7, 1, // face 9
+        0, 1, 2, // face 4
+        1, 2, 3, // face 5
+        2, 3, 6, // face 6
+        3, 6, 7, // face 7
+        1, 3, 7, // face 8
+        1, 5, 7, // face 9
         5, 4, 7, // face 10
         5, 4, 6, // face 11
     };

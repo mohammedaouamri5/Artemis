@@ -72,6 +72,15 @@ inline void Camera::moveCamera() {
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
     position += 0.5f * right;
   }
+
+  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+    position.y += 0.1f;
+  }
+
+  if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+    position.y -= 0.1f;
+  }
+
 }
 
 inline void Camera::updateRotation() {
