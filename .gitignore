@@ -24,6 +24,9 @@ LOG*
 Makfile
 
 *.ini
+*.ply
+*.npy
+
 
 # Exclude
  

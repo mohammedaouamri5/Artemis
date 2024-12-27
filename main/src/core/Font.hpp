@@ -2,22 +2,22 @@
 #define _FONT_H_
 #include "imgui.h"
 
-namespace CORE
-{
+namespace CORE {
 
-    class Font
-    {
-    private:
-    ImFont font;
-        
-    public:
-    void INIT();
-    void USE();
-    void UNUSE(); 
+class Font {
+private:
+  ImFont *font;     // Use a pointer since ImGui manages the font memory
+  const char *path; // Path to the font file
+  float size;       // Font size
 
-        Font(/* args */);
-        ~Font();
-    };
+public:
+  Font(const char *fontPath, float fontSize);
+  
+  void INIT();
+  void USE() const;
+  void UNUSE() const;
+  ~Font();
+};
 
 } // namespace CORE
 

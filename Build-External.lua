@@ -18,6 +18,7 @@ group "Dependencies"
    include "vendor/stb_image"
    include "vendor/SOIL"
    include "vendor/glad"
+   include "vendor/cnpy"
 
 group ""
 
