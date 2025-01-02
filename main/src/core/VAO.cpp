@@ -1,6 +1,9 @@
 
 
 #include "Layout.hpp"
+#include "glm/detail/qualifier.hpp"
+#include "glm/ext/matrix_float4x4.hpp"
+#include "glm/ext/matrix_transform.hpp"
 #include <LOG.hpp>
 #include <VAO.hpp>
 #include <cstdlib>
@@ -8,13 +11,12 @@
 #include <string>
 
 VAO::VAO(glm::vec3 position, Loader::DATA *data) {
-  Id = std::to_string(rand());
-
   indices_count = data->GetNbIndices();
   unsigned int VBO, CBO, EBO;
   // Generate and bind Vertex Array Object (VAO)
   glGenVertexArrays(1, &vao);
   glBindVertexArray(vao);
+  Id = std::to_string(vao);
 
   // Generate and bind Vertex Buffer Object (VBO) for vertex positions
   glGenBuffers(1, &VBO);
@@ -87,10 +89,55 @@ VAO::VAO(glm::vec3 position, Loader::DATA *data) {
   glDeleteShader(fragmentShader.getShader());
 }
 
+glm::mat4 VAO::applyRotation() {
+  glm::mat4 rotationMatrix = glm::mat4(1.0f); // Identity matrix
+
+  // Apply rotations in the specified order (Yaw -> Pitch -> Roll)
+  if (rotation_first == 1) {
+    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(Yaw),
+                                 glm::vec3(0.0f, 0.0f, 1.0f)); // Z-axis (Yaw)
+    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(Pitch),
+                                 glm::vec3(0.0f, 1.0f, 0.0f)); // Y-axis (Pitch)
+    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(Roll),
+                                 glm::vec3(1.0f, 0.0f, 0.0f)); // X-axis (Roll)
+  } else {
+    // Apply other rotation orders if needed
+    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(Roll),
+                                 glm::vec3(1.0f, 0.0f, 0.0f)); // X-axis
+    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(Pitch),
+                                 glm::vec3(0.0f, 1.0f, 0.0f)); // Y-axis
+    rotationMatrix = glm::rotate(rotationMatrix, glm::radians(Yaw),
+                                 glm::vec3(0.0f, 0.0f, 1.0f)); // Z-axis
+  }
+
+  // Optionally, apply a transformation (translation/scale) to the matrix
+  glm::mat4 transformationMatrix = glm::translate(
+      glm::mat4(1.0f),
+      glm::vec3(transformation.x, transformation.y, transformation.z));
+
+  // Combine the transformation and rotation matrices
+  glm::mat4 finalMatrix = transformationMatrix * rotationMatrix;
+
+  return finalMatrix;
+}
+
 void VAO::RUN() {
+
+  ImGui::Begin(Id.c_str());
+
+  {
+    ImGui::BulletText("Transformation");
+    ImGui::DragFloat4("Transformation", &transformation[0]);
+    ImGui::BulletText("Rotation");
+    ImGui::DragFloat("Roll  : ", &Roll, 0.1, 0.0, 360.0, "%.3f");
+    ImGui::DragFloat("Pitch : ", &Pitch, 0.1, 0.0, 360.0, "%.3f");
+    ImGui::DragFloat("Yaw   : ", &Yaw, 0.1, 0.0, 360.0, "%.3f");
+    ImGui::CheckboxFlags("Rotation first\0Transformation first",
+                         &rotation_first, 1);
+  }
+
   glm::mat4 MVP = CORE::Layout::camera->projection_mat *
-                  CORE::Layout::camera->view_mat *
-                  glm::translate(glm::mat4(1.0f), position);
+                  CORE::Layout::camera->view_mat * applyRotation();
 
   // Use shader program and set MVP uniform
   glUseProgram(program.getShader());
@@ -99,12 +146,10 @@ void VAO::RUN() {
 
   glBindVertexArray(vao);
 
-  // Start ImGui window
-  ImGui::Begin(Id.c_str());
-
   // Add VAO information
+  ImGui::Checkbox("Show : ", &Show);
   ImGui::Text("VAO Information:");
-  ImGui::BulletText(" Indeces : %ld", indices_count);
+  ImGui::BulletText(" Indeces : %d", indices_count);
   int maxAttributes;
   glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &maxAttributes);
 
@@ -141,6 +186,7 @@ void VAO::RUN() {
   ImGui::End();
 
   // Draw the object
-  glDrawElements(GL_TRIANGLES, indices_count, GL_UNSIGNED_INT, nullptr);
+  if (Show)
+    glDrawElements(GL_TRIANGLES, indices_count, GL_UNSIGNED_INT, nullptr);
   glBindVertexArray(0);
 }

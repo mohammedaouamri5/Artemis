@@ -7,7 +7,6 @@
 namespace CORE {
 
 void Camera::updateProjection() {
-
   projection_mat =
       glm::perspective(glm::radians(fov), aspect_ratio, near_plane, far_plane);
 }
@@ -74,20 +73,19 @@ inline void Camera::moveCamera() {
   }
 
   if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-    position.y += 0.1f;
+    position.y += 0.5f;
   }
 
   if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
-    position.y -= 0.1f;
+    position.y -= 0.5f;
   }
-
 }
 
 inline void Camera::updateRotation() {
   glfwGetCursorPos(window, &mouse_x, &mouse_y);
 
-  yaw += asin((mouse_x / width - 0.5) );
-  pitch += asin((mouse_y / height - 0.5) );
+  yaw += asin((mouse_x / width - 0.5));
+  pitch += asin((mouse_y / height - 0.5));
   double centerX = width / 2.0;
   double centerY = height / 2.0;
   glfwSetCursorPos(window, centerX, centerY);
@@ -98,7 +96,6 @@ void Camera::INIT() {
 }
 
 inline void Camera::ImGuiEditor() {
-
   ImGui::Begin("CAMERA");
 
   // Add sliders for yaw and pitch
@@ -107,7 +104,6 @@ inline void Camera::ImGuiEditor() {
   ImGui::SliderFloat("Yaw", &this->yaw, -glm::pi<float>(), glm::pi<float>());
   ImGui::SliderFloat("Pitch", &pitch, -glm::half_pi<float>(),
                      glm::half_pi<float>());
-
 
   // Add buttons aligned to represent directions
   ImGui::Text("Move Camera");
@@ -130,26 +126,19 @@ inline void Camera::ImGuiEditor() {
   if (ImGui::Button("→ ")) {
     position += 0.5f * right;
   }
-  ImGui::NewLine(); 
-  ImGui::Separator(); 
+  ImGui::NewLine();
+  ImGui::Separator();
   ImGui::BulletText("Projection");
-  ImGui::SliderFloat("FOV ", &fov,45.f, 180.f);
+  ImGui::SliderFloat("FOV ", &fov, 45.f, 180.f);
 
   ImGui::SliderFloat("NERA", &near_plane, 0.f, far_plane, "%.6f");
-  ImGui::SliderFloat("FAR ", &far_plane , near_plane, 1e6f);
+  ImGui::SliderFloat("FAR ", &far_plane, near_plane, 1e6f);
   updateProjection();
-
-  
-
-
-
-
 
   ImGui::End();
 }
 
 void Camera::RUN() {
-
   if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
     LOG_INFO("I");
     if (mode == MODE::MANUAL)

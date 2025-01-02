@@ -41,7 +41,7 @@ public:
         float __threshold); //  { LOG_INFO("WOW"); }
 
   void INIT_THE_DROW(unsigned int *VAO, CORE::Shader *program,
-                     uint64_t  *NbIndices) /* override */;
+                     uint64_t *NbIndices) /* override */;
 
   float *GetVertices() override;
   uint64_t GetNbVertices() override;
@@ -55,6 +55,8 @@ public:
   uint64_t GetNbColor() override;
   uint64_t GetSizeColor() override;
   uint64_t GetDimColor() override;
+  public:
+  void Mesh(int start_x, int end_x, int start_y, int end_y);
 };
 
 }; // namespace Loader

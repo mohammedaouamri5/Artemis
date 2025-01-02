@@ -15,6 +15,7 @@
 #include <glm/gtc/matrix_transform.hpp> // For glm::perspective and glm::lookAt
 #include <glm/gtc/type_ptr.hpp>         // For glm::value_ptr (optional)
 #include <strings.h>
+#include <thread>
 
 #define __UP__(x, y) x - 1, y
 #define __DOWN__(x, y) x + 1, y
@@ -79,7 +80,6 @@ Numpy::Numpy(const char *__path, float __fov, float __threshold) {
   }
 
   this->Mesh();
-  
 }
 
 inline int Numpy::Index(int i, int x, int y) { return i * H * W + x * W + y; }
@@ -98,25 +98,23 @@ void Numpy::AddFace(unsigned int First, unsigned int Second,
   Indices.push_back(Third - Index(3, 0, 0));
 }
 
-void Numpy::Mesh() {
-  float threshold = 0.1f;
-  LOG_INFO("X then Y");
-  // FIXME : ADD THREADS
+// NOTE : The strat are included and the end are not
+inline void Numpy::Mesh(int start_x, int end_x, int start_y, int end_y) {
   glm::vec4 UP = Point(__UP__(1, 1), data[Index(3, __UP__(1, 1))]);
-  for (int x = 1; x < H; x++) /* GO DOWN */ {
+  for (int x = start_x; x < end_x; x++) /* GO DOWN */ {
     glm::vec4 LEFT = Point(__LEFT__(1, 1), data[__LEFT__(1, 1)]);
-    for (int y = 1; y < W; y++) /* GO RIGHT */ {
+    for (int y = start_y; y < end_y; y++) /* GO RIGHT */ {
       glm::vec4 RIGHT = Point(__RIGHT__(x, y), data[Index(3, __RIGHT__(x, y))]);
       glm::vec4 DOWN = Point(__DOWN__(x, y), data[Index(3, __DOWN__(x, y))]);
       glm::vec4 INDEX = Point(x, y, data[Index(3, x, y)]);
       {
         if (glm::distance(UP, INDEX) < this->threshold &&
-            glm::distance(LEFT, INDEX) < threshold)
+            glm::distance(LEFT, INDEX) < this->threshold)
           AddFace(Index(3, x, y), Index(3, __UP__(x, y)),
                   Index(3, __LEFT__(x, y)));
 
         if (glm::distance(DOWN, INDEX) < this->threshold &&
-            glm::distance(RIGHT, INDEX) < threshold)
+            glm::distance(RIGHT, INDEX) < this->threshold)
           AddFace(Index(3, x, y), Index(3, __DOWN__(x, y)),
                   Index(3, __RIGHT__(x, y)));
       }
@@ -124,6 +122,26 @@ void Numpy::Mesh() {
     }
     UP = Point(__UP__(x, 1), data[Index(3, __UP__(x, 1))]);
   }
+}
+
+static void mesh(Numpy *This, int start_x, int end_x, int start_y, int end_y) {
+  This->Mesh(start_x, end_x, start_y, end_y);
+}
+
+void Numpy::Mesh() {
+  LOG_INFO("X then Y");
+
+  Mesh(1, W, 1, H);
+
+  // std::thread t1(mesh, this, 1, W / 2, 1, H / 2);
+  // std::thread t2(mesh, this, W / 2, W, 1, H / 2);
+  // std::thread t3(mesh, this, 1, W / 2, H / 2, H);
+  // std::thread t4(mesh, this, W / 2, W, 1, H / 2);
+
+  // t1.join();
+  // t2.join();
+  // t3.join();
+  // t4.join();
 }
 
 void Numpy::INIT_THE_DROW(unsigned int *VAO, CORE::Shader *program,
